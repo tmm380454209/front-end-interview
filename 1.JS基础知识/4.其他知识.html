@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>其他知识</title>
+</head>
+<body>
+	<!-- 
+	题目：
+	获取2017-06-10格式的日期
+	获取随机数，要求是长度一致的字符串的格式
+	写一个能遍历对象和数组的通用forEach函数
+	
+	知识点：
+	日期
+	
+	Math
+	  Math.random()
+	数组API
+	 forEach遍历所有元素
+	 every判断所有元素是否都符合条件
+	 some判断是否至少有一个元素符合条件
+	 sort排序
+	 map对元素重新组装，生成新数组
+	 filter 过滤符合条件的元素
+	对象API 
+	-->
+
+
+<script>
+	//日期
+	console.log(Date.now());
+	var dt = new Date();
+	console.log(dt);
+	console.log(dt.getFullYear());
+	console.log(dt.getMonth());
+	console.log(dt.getDate());
+	console.log(dt.getHours());
+	console.log(dt.getMinutes());
+	console.log(dt.getSeconds());
+
+	//Math
+	
+
+	//Array
+	var arr = [1,2,3,4];
+
+	arr.forEach(function(item,index){
+		console.log(index,item);
+	})
+
+	var result = arr.every(function(item,index){
+		if(item<5){
+			return true;
+		}
+	})
+
+	var arr2 = arr.sort(function(a,b){
+		return a-b;
+	})
+	console.log(arr2);
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件</title>
+</head>
+<body>
+<!-- 
+	题目
+	1.编写一个通用的事件监听函数
+	2.描述事件冒泡流程
+	3.对于一个无限下拉加载图片的页面，如何给每个图片绑定事件
+	    
+	知识点
+	通用事件绑定
+	    addEventListener IE低版本使用attachEvent绑定事件
+	事件冒泡
+	代理 
+	  两个优点：1.不用绑定很多次，页面渲染，代码量少
+-->
+
+   <div id="div1">
+        <a href="http://imooc.com" id="link1">imooc.com1</a>
+        <a href="http://imooc.com" id="link2">imooc.com2</a>
+        <a href="http://imooc.com" id="link3">imooc.com3</a>
+        <a href="http://imooc.com" id="link4">imooc.com4</a>
+        <a href="http://imooc.com" id="link5">imooc.com5</a>
+   		<p id="p1">激活</p>
+   		<p id="p2">取消</p>
+   </div>
+   <div id="div2">
+   		<p id="p3">取消</p>
+   		<p id="p4">取消</p>
+   </div>
+
+   <script type="text/javascript">
+   //bindEvent(div1,'click','a',function(e) {})
+   //bindeEvent(div1,'click',function(e) {})
+   
+   //通用的事件绑定函数
+   		function bindEvent(elem,type,selector,fn) {
+   			if(fn == null) {
+   				fn = selector;
+   				selector = null;
+   			}
+   			elem.addEventListener(type,function(e) {
+   				var target;
+   				if(selector) {
+   				//代理
+   					target = e.target;
+   					if(target.matches(selector)){
+   						fn.call(target,e)
+   					}
+   				}else{
+   				//不是代理
+   					fn(e);
+   				}	
+   			})	
+   		}
+
+   		var div1 = document.getElementById('div1');
+
+   		bindEvent(div1,'click','a',function(e) {
+   			e.preventDefault();
+   			console.log(this.innerHTML);
+   		})
+
+   		var p1 = document.getElementById('p1');
+   		bindEvent(p1,'click',function(e) {
+   			console.log(p1.innerHTML);
+   		})
+
+   		//1.事件绑定
+   		/*
+   		
+   		var link1 = document.getElementById('link1');
+
+   		bindEvent(link1,'click',function(e) {
+   			e.preventDefault();
+   			console.log(123);
+   		})
+
+   		*/
+
+   		//2.事件冒泡
+   		
+   		/*
+   		
+   		var p1 = document.getElementById('p1');
+   		bindEvent(p1,'click',function(e){
+   			e.stopPropagation();
+   			alert('激活');
+   		})
+
+   		var body = document.body;
+   		bindEvent(body,'click',function(e){
+   			alert('取消');
+   		})
+
+   		*/
+
+   		//3.事件代理 给a标签代理
+   		/*
+   		
+   		var div1 = document.getElementById('div1');
+   		bindEvent(div1,'click',function(e){
+   			e.preventDefault();
+   			var target = e.target;
+   			if(target.nodeName === 'A') {
+   				console.log('clicked');
+   			}
+   		});
+
+   		*/
+   	
+   </script>
+</body>
+</html>
