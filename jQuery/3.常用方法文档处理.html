@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+
+
+	<script>	
+	//一丶
+	//1.获取 设置 CSS  返回jQuery对象 可以进行链式写法
+	var $box = $("#box");
+	console.log($box.css("width"));
+
+	$box.css({
+		background = "red";
+		opacity:0.5;
+	});
+
+	//2.offset:不管父级参照物是谁，获取当前元素距离BODY的偏移距离（top left)
+	//position:获取当前元素距离父级参照物的距离；
+	//3.scrollTop / scrollLeft:获取或者设置元素的卷去高度、宽度
+	//4.width/height:
+	//5.innerWidth / innerHeight :获取或者设置元素可视区域的宽高 (clientWidth clientHeight) 
+	//设置时保留padding值，把width值进行改变（最小为0）
+	//
+	//6. outerWidth/outerHeight:获取或者设置元素可视区宽高（包含边框） 设置具体的值的时候和上面的效果一样
+	//如果传递进来的参数是true 默认把margin的值也计算在内
+	//
+	//
+	//二丶文档处理
+	//1.append:向指定容器的末尾追加一个新的元素  容器.append(元素)
+	//  appendTo : 元素.appendTo(容器)
+	var oDiv = document.createElement("div");
+	oDiv.id = "div5";
+	$box.append("oDiv");
+	$(oDiv).appendTo($box);
+
+	//2.prepend / prependTo : 向指定容器的开头追加一个新的元素
+	//3.after / before : 在当前元素的后面 、 前面追加新的元素
+	//4.insertAfter / insertBefore :在容器中指定元素之后，之前追加新元素
+
+	var oDiv = document.createElement("div");
+	oDiv.id = "div5";
+	$(oDiv).insertBefore($box);
+	$(oDiv).insertAfter($box); //->把创建的oDiv追加到$box后面 （和$box同级的）
+
+
+	
+	//5.replaceAll(selector):用匹配的结果替换所有selector匹配的元素  
+	//
+	$(oDiv).replaceAll("ul"); //页面中所有的ul都用oDiv给替换了
+
+	//6.remove
+	//7.detach 
+	//
+	//
+
+	//三丶筛选
+	//eq(index) first() last()
+	//hasClass(strClass) 检测当前的元素中是否包含某一个样式类名 有就返回true
+	//
+	//filter  children  find   筛选遍历
+	//filter:同级过滤 首先通过选择器获取一个集合，在获取内容中进行二次筛选
+	console.log($("*",$box).filter("ul"));
+	//children:子集过滤 
+	//find：后代过滤
+	//is:
+	//map:遍历jQuery集合中的每一项，并且可以支持返回值把每一项进行修改，类似于数组map方法
+	//parent:  parents:
+	//next nextAll siblings prev prevAll
+	
+	</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script>
+		var oBox = document.getElementById("box");
+		
+
+		//使用递归思想完成setTimeout轮循动画
+/*      
+        var maxLeft = utils.win("clientWidth") - oBox.offsetWidth;
+		var step = 5;
+		var timer = null;
+
+		function move() {
+			window.clearTimeout(timer);
+			var curLeft = utils.css(oBox,"left");
+			if(curLeft + step >= maxLeft) {
+				utils.css(oBox,"left",maxLeft);
+				return;
+			}
+			curLeft += step;
+			utils.css(oBox,"left",curLeft);
+			timer = window.setTimeout(move,10);
+		}
+
+		move();
+*/
+		//实现反弹动画 有两个按钮，一个向左，一个向右，点击其中一个按钮，元素向左/向右运动
+		var minLeft = 0;
+		var maxLeft = utils.win("clientWidth") - oBox.offsetWidth;
+		//var timer = null;//保证同一时间段内只执行一个方向的动画，可以用自定义属性oBox.timer来做
+		function move(target) {
+			_move();
+			function _move () {
+				window.clearTimeout(oBox.timer);
+				var curLeft = utils.css(oBox,"left");
+				if(curLeft < target) {
+					if(curLeft + 5 > target) {
+						utils.css(oBox,"left",target);
+						return;
+					}
+				curLeft += 5;
+				utils.css(oBox,"left",curLeft);
+				}else if (curLeft > target){
+					if(curLeft - 5 < target) {
+						utils.css(oBox,"left",target);
+						return;
+					}
+					curLeft -= 5;
+					utils.css(oBox,"left",curLeft);
+				}else {
+					return;
+				}
+				oBox.timer = window.setTimeout(_move,10);
+			}
+		}
+
+		document.getElementById("buttonLeft").onclick = function() {
+			move(minLeft);
+		}
+		document.getElementById("buttonRight").onclick = function() {
+			move(maxLeft);
+		}
+
+		//动画优化
+		//1.边界判断
+		//2.计时器的返回值放在设置动画的元素上，当前时间内只执行一个方向的动画
+		//3.计时器的回调函数要传参的话，再定义一个内置的函数，避免作用域嵌套
+
+		
+	</script>
+</body>
+</html>

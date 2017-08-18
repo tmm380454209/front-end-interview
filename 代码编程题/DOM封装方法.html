@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="div1">
+
+		<div></div>
+		<div></div>
+		<div>
+			<p></p>
+			<p></p>
+		</div>
+		<p></p>
+		<p></p>
+		<p></p>
+
+
+	</div>
+	<script>
+	var oDiv = document.getElementById("div1");
+    //获取子元素节点
+	function children(curEle,tagName) {
+		var ary = [];
+		//IE 6-8 不能实现children属性
+		if((/MSIE (6|7|8)/i).test(navigator.userAgent)){
+			var nodeList = curEle.childNodes;	
+			for(var i =0;i< nodeList.length;i++) {
+				var curNode = nodeList[i];
+				if(curNode.nodeType === 1) {
+					ary[ary.length] = curNode;
+				}
+			}
+		}else {
+			//标准浏览器中，使用children获得是一个类数组，转换为数组
+			ary = Array.prototype.slice.call(curEle.children);
+		}
+		if(typeof tagName === "string") {
+			for(var j = 0;j< ary.length;j++) {
+				var cur = ary[j];
+				if(cur.nodeName.toLowerCase() !== tagName.toLowerCase()) {
+					ary.splice(j,1);
+					j--;
+				}
+			}
+		}
+		return ary;
+	}
+
+
+	//调用
+	console.log(children(oDiv,"p"));
+
+	//prev：获取上一个哥哥元素节点
+	function prev(curEle) {
+		if(curEle.previousElementSibling) {
+			return curEle.previousElementSibling;
+		}
+		var pre = curEle.previousSibling;
+		while(pre && pre.nodeType != 1) {
+			pre = pre.previousSibling;
+		}
+		return pre;
+	}
+
+	//prepend:向指定容器的开头追加元素
+	function prepend(newEle,container) {
+		var fir = container.firstChild;
+		if(fir) {
+			container.insertBefore(newEle,fir);
+			return;
+		}
+		container.appendChild(newEle)
+	}
+
+	//insertAfter :把新元素追加到指定元素的后面
+	function insertAfter(newEle,oldEle) {
+		var nex = oldEle.nextElementSibling;
+		if(nex) {
+			oldEle.parentNode.insertBefore(newEle, nex);
+			return;
+		}
+		oldEle.parentNode.appendChild(newEle);
+	}
+
+	//addClass 增加样式类名
+	//removeClass 删除样式类名
+	//hasClass 判断是否存在某一个样式类名
+	
+	function addClass(curEle,className) {
+		//为了防止className传进来多个样式类名
+		var ary = className.repalce(/(^ +| +$)/g,"").split(/ +/g);
+		for(var i = 0;i<ary.length;i++) {
+			var curName = ary[i];
+			if(!hasClass(curEle,curName)) {
+				curEle.className += " " + curName;
+			}
+		}
+	}
+	//调用
+	addClass(box,"position");
+	addClass(box,"position bg");  //如果一开始类里有bg 再加会重复加上去
+
+	//是否有指定的样式类名
+	function hasClass(curEle,className) {
+		var reg = new RegExp("(^| +)" + className + "( +|$)");
+		return reg.test(curEle.className);
+	}
+
+	//移除
+	function removeClass(curEle,className) {
+		//为了防止className传进来多个样式类名
+		var ary = className.repalce(/(^ +| +$)/g,"").split(/ +/g);
+		for(var i = 0;i<ary.length;i++) {
+			var curName = ary[i];
+			if(hasClass(curEle,curName)) {
+				var reg = new RegExp("(^| +)" + curName + "( +|$)","g");
+				curEle.className = curEle.className.replace(reg," ");
+			}
+		}
+	}	
+
+	settimou
+	
+	</script>
+</body>
+</html>
