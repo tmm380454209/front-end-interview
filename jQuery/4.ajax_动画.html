@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax,动画</title>
+	<style>
+		#box {
+			position: absolute;
+			top:50px;
+			left:50%;
+			margin-left:-100px;
+			width: 200px;
+			height: 300px;
+			background-color: red;
+			outline: none;
+		}
+		input {
+			display: block;
+			margin:5px auto;
+			width: 200px;
+			height: 35px;
+			border:1px solid salmon;
+			cursor:pointer;
+		}
+	</style>
+</head>
+<body>
+	<input type="button" value="操作" id="submit">
+	<div id="box"></div>
+
+
+
+
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		var $submit = $("#submit"),$box = $("#box");
+		$submit.on('click',function(){
+			$box.stop().hide(500);
+			$box.stop().hide("slow"); //"fast" 时间ms
+
+			$box.stop().slideUp(500);
+			$box.stop().fadeOut(500);
+
+			$box.stop().delay(1000).slideToggle(500);
+
+			$box.slideUp(500).stop().hide(500);//stop结束上一个动画，下一个动画紧接着当前位置开始运动的
+			$box.slideUp(500).finish().toggle(500);//结束上一个动画，让元素快速到达目标位置
+
+
+
+		})
+	})
+
+
+
+
+
+
+	//ajax
+	
+		$.ajax({
+			url:"json/test.txt?_=" + Math.random(),
+			type:"get",
+			dataType:"json", //"text","html","jsonp"
+			success:function(data) {
+				console.log(data);
+			}
+		});
+
+		$("#box").css();
+
+	//事件
+	var $box = $("#box");
+	$box.on("click",function() {
+		console.log(1); //this:当前元素（js原生对象）  $(this) ->jQ对象
+	});
+
+	$box.on("click",function() {
+		console.log(2);
+	});
+
+	//工具
+	//each:jQ中有两个each
+	//1)循环选择器获取到的jQ集合中的每一项
+	$("div").each(function (index,item) {
+		console.log(item);
+	});
+
+	//2)循环数组，类数组，对象中的每一项
+	$.each([12,23,34],function(index,item) {console.log(item);});
+	$.each(document.getElementsByTagName("*"),function(index,item) {console.log(item);})
+	$.each({name:"zhangsan",age:13},function(index,item) {console.log(item);});
+
+	//$.makeArray(obj)  类数组-> 数组
+	
+
+
+	//动画
+	//
+	$("#box").animate({left:xxx,top:xxx},duration,"linear/ease/easeIn/easeOut/easeInOut",function(){})
+
+	//stop:结束之前正在进行的动画，开启下一个新的动画
+	$("#box").stop().animate({},1000,function() {});
+	//delay:延迟
+	//finish:
+	//
+	//特殊动画：
+	//fadeIn,fadeOut，fadeToggle
+	//show,hide,toggle
+	//slideUp,slideDown,slideToggle
+	//
+	
+
+	</script>
+</body>
+</html>
