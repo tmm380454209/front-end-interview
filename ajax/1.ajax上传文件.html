@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax无刷新上传</title>
+</head>
+<body>
+	<input type="file" id="myFile" multiple="multiple" />
+	<input type="button" id="btn" value="上传">
+	<script>
+//1.使用FormData对象添加字段方式上传文件
+		var oMyFile = document.getElementById("myFile");
+		var oBtn = document.getElementById("btn");
+
+		oBtn.onclick = function() {
+			//alert(oMyFile.value) //是控件的value值，这个内容是文件的名字。
+			//alert(oMyFile.files); //[object FileList]
+			//alert(oMyFile.files[0]);//[object File]
+/*
+			for(var attr in oMyFile.files) {
+				console.log(oMyFile.files[attr]);
+			}
+
+			console.log("------------------------------");
+
+			for(var attr in oMyFile.files[0]) {
+				console.log(attr+':'+oMyFile.files[0][attr]);
+			}
+*/
+			//我们要通过ajax把oMyFile.files[0]数据发送给后端
+			//
+			
+		//监听上传完后服务器返回响应
+		xhr.onload = function() {
+			//alert(1);
+			//var d = JSON.parse(this.responseText);
+			
+			//alert(d.msg + ' : ' + d.url);
+			
+			alert('OK,上传完成');
+		}
+		
+		//alert(xhr.upload);
+		var oUpload = xhr.upload;
+		//alert(oUpload);
+		oUpload.onprogress  = function(ev) {
+			console.log(ev.total + ' : ' + ev.loaded);
+			
+			var iScale = ev.loaded / ev.total;
+			
+			oDiv2.style.width = 300 * iScale + 'px';
+			oDiv3.innerHTML = iScale * 100 + '%';
+			
+		}
+		
+		xhr.open('post', 'post_file.php', true);
+		xhr.setRequestHeader('X-Request-With', 'XMLHttpRequest');
+		
+		var oFormData = new FormData();	//通过FormData来构建提交数据
+		oFormData.append('file', oMyFile.files[0]);
+		xhr.send(oFormData);
+		
+		
+	}
+
+//使用<form>表单初始化FormData对象方式上传文件
+/*
+
+//html
+<form id="uploadForm" enctype="multipart/form-data">
+    <input id="file" type="file" name="file"/>
+    <button id="upload" type="button">upload</button>
+</form>
+
+//JS
+    //...前面步骤略
+
+	var oForm = document.getElementById("uploadForm");
+	xhr.send(new FormData(oForm));
+ */
+
+
+		}
+	</script>
+</body>
+</html>
