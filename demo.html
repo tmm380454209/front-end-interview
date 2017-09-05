@@ -4,17 +4,76 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<style type="text/css">
-    #p{
-        background-color: salmon;
+    #box1 {
+        width: 100px;
+        height:100px;
+        background-color: red;
+        
     }
-    div[id="p"]{
-    	background-color: green;
+    #box2 {
+        width: 200px;
+        height: 200px;
+        background-color: green;
+        position: absolute;
+    }
+    #box3 {
+        width:  50px;
+        height: 50px;
+        background-color: salmon;
+        opacity: 0.8;
     }
 </style>
 </head>
 <body>
-	<div id="p">
-    	<h1 id="c">Test Float Element Center</h1>
-	</div>
+	<div id="box1"></div>
+    <div id="box2"></div>
+    <div id="box3"></div>
+    <script>
+    /*function isOdd(num) {
+        return num % 2 == 1;
+    }
+    function isEven(num) {
+        return num % 2 == 0;
+    }
+    function isSane(num) {
+        return isEven(num) || isOdd(num);
+    }
+    var values = [7,4,'13',-9,Infinity];
+    console.log(values.map(isSane));*/
+/*
+    var object = {b:{c:3},d:[{e:10},{e:6}]};
+    console.log(JSON.parse(object,'d.e') == 4);*/
+   /* (function(a) {
+        console.log(a);
+        var a = 10;
+        function a() {};
+    })(100);*/
+/*
+    var x = 1;
+    var output = (function(){delete x;return x;})();
+    console.log(output);
+
+    delete
+
+    svg 四边形(220,100)(300,210),(170,250)(123,234)
+
+    普通函数与箭头函数的区别
+
+    css3动画实现
+    
+    (function(a,b) {}).lengfunth;
+    [1<2<3,3<2<1];*/
+   /* function isOdd(num) {
+        return num % 2 == 1;
+    }
+    function isEven(num) {
+        return num % 2 == 0;
+    }
+    function isSane(num) {
+        return isEven(num) || isOdd(num);
+    }
+    var values = [7,4,'13',-9,Infinity];
+    console.log(values.map(isSane));*/
+    </script>
 </body>
 </html>
